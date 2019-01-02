@@ -1,0 +1,43 @@
+{
+  "name": "middy-request-validator",
+  "version": "1.0.0",
+  "description": "Request validator for the middy framework",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node_modules/.bin/babel src --out-dir lib --watch",
+    "prepack": "npm run prepack:babel && npm run prepack:flow",
+    "prepack:babel": "node_modules/.bin/babel src --out-dir lib",
+    "prepack:flow": "flow-copy-source src lib"
+  },
+  "keywords": [
+    "middy",
+    "middleware",
+    "request",
+    "validator"
+  ],
+  "author": "Micaël Dekleyn",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^3.0.0",
+    "flow-bin": "^0.89.0",
+    "flow-copy-source": "^2.0.2",
+    "prettier": "^1.15.3"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.11",
+    "middy": "^0.20.0"
+  }
+}
