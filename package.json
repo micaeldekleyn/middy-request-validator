@@ -17,6 +17,12 @@
   ],
   "author": "Micaël Dekleyn",
   "license": "MIT",
+  "homepage": "https://github.com/micaeldekleyn/middy-request-validator",
+  "bugs": "https://github.com/micaeldekleyn/middy-request-validator/issues",
+  "repository": {
+    "url": "https://github.com/micaeldekleyn/middy-request-validator",
+    "type": "git"
+  },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.5",
