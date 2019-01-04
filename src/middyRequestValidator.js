@@ -1,11 +1,12 @@
 // @flow
+/* eslint-disable no-extra-boolean-cast */
 
 import * as middy from "middy";
-import { validate, JoiObject } from "joi";
+import * as Joi from "joi";
 import { indexOf } from "lodash";
 
 export type IBodyConfig = {
-  schema: JoiObject
+  schema: Joi.JoiObject
 };
 
 export type IRequestValidatorConfig = {
@@ -57,24 +58,27 @@ export const requestValidator = (
         }
       }
 
-      if (config.body && config.body.schema) {
+      if (!!config.body?.schema) {
         if (!handler.event.body) {
-          const message = "Body is required";
-          console.error(message);
           return handler.callback(null, {
             statusCode: 400,
-            body: JSON.stringify({ error: message })
+            body: JSON.stringify({ error: "Body is required" })
           });
         }
 
-        const validation = validate(handler.event.body, config.body.schema, {
-          abortEarly: false
-        });
+        const validation = Joi.validate(
+          handler.event.body,
+          config.body?.schema,
+          {
+            abortEarly: false
+          }
+        );
+        console.log(validation);
         if (validation.error) {
-          console.error(validation.error.message);
+          console.error(validation);
           return handler.callback(null, {
             statusCode: 400,
-            body: JSON.stringify({ error: validation.error.message })
+            body: JSON.stringify({ error: validation })
           });
         }
       }
