@@ -32,12 +32,6 @@ export const requestValidator = (
           handler.event.headers && handler.event.headers.Source
             ? handler.event.headers.Source
             : "app";
-        let userGroups: any =
-          handler.event.requestContext.authorizer.claims["cognito:groups"];
-
-        if (userGroups === "admin") {
-          userGroups = ["admin"];
-        }
 
         if (indexOf(config.permittedSource, source) === -1) {
           console.error(source);
@@ -46,15 +40,24 @@ export const requestValidator = (
           });
         }
 
-        if (
-          source === "backoffice" &&
-          (!userGroups || (userGroups && indexOf(userGroups, "admin") === -1))
-        ) {
-          console.error(userGroups);
-          console.error(source);
-          return handler.callback(null, {
-            statusCode: 403
-          });
+        let userGroups: any =
+          handler.event.requestContext.authorizer.claims["cognito:groups"];
+
+        if (userGroups) {
+          if (userGroups === "admin") {
+            userGroups = ["admin"];
+          }
+
+          if (
+            source === "backoffice" &&
+            (!userGroups || (userGroups && indexOf(userGroups, "admin") === -1))
+          ) {
+            console.error(userGroups);
+            console.error(source);
+            return handler.callback(null, {
+              statusCode: 403
+            });
+          }
         }
       }
 
