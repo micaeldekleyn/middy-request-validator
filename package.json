@@ -44,6 +44,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
     "middy": "^0.20.0"
   }
