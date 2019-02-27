@@ -4,6 +4,7 @@
 import * as middy from "middy";
 import * as Joi from "joi";
 import { indexOf } from "lodash";
+import { decode } from "jsonwebtoken";
 
 export type IBodyConfig = {
   schema: Joi.JoiObject
@@ -40,8 +41,11 @@ export const requestValidator = (
           });
         }
 
-        let userGroups: any =
-          handler.event.requestContext.authorizer.claims["cognito:groups"];
+        // let userGroups: any =
+        //   handler.event.requestContext.authorizer.claims["cognito:groups"];
+        let userGroups: any = decode(handler.event.headers.Authorization)[
+          "cognito:groups"
+        ];
 
         if (userGroups) {
           if (userGroups === "admin") {
